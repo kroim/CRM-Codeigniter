@@ -1,0 +1,194 @@
+
+.content {
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-right: auto;
+    margin-left: auto;
+}
+#myTable{
+    overflow-x: scroll;
+    overflow-y: auto;
+}
+.check{
+    width: 2%;
+
+}
+/*div.check{*/
+    /*width: 1.9%;*/
+    /*text-align: center;*/
+/*}*/
+/*.PK_clientID{*/
+/*width: 5%;*/
+/*}*/
+/*div.PK_clientID{*/
+/*width: 5%;*/
+/*}*/
+/*.client_title{*/
+/*width: 8%;*/
+/*}*/
+/*div.client_title{*/
+/*width: 5.4%;*/
+/*}*/
+/*.client_firstname{*/
+/*width: 10%;*/
+/*}*/
+/*div.client_firstname{*/
+/*width: 10%;*/
+/*}*/
+/*.client_lastname{*/
+/*width: 10%;*/
+/*}*/
+/*div.client_lastname{*/
+/*width: 10%;*/
+/*}*/
+/*.client_phone{*/
+/*width: 8%;*/
+/*}*/
+/*div.client_phone{*/
+/*width: 5.9%;*/
+/*}*/
+/*.client_email{*/
+/*width: 10%;*/
+/*}*/
+/*div.client_email{*/
+/*width: 10%;*/
+/*}*/
+/*.client_wechat{*/
+/*width: 6%;*/
+/*}*/
+/*div.client_wechat{*/
+/*width: 8%;*/
+/*}*/
+/*.client_address{*/
+/*width: 10%;*/
+/*}*/
+/*div.client_address{*/
+/*width: 10%;*/
+/*}*/
+/*.client_NoOfPurchased{*/
+/*width: 9%;*/
+/*}*/
+/*div.client_NoOfPurchased{*/
+/*width: 9%;*/
+/*}*/
+/*.client_firb{*/
+/*width: 8%;*/
+/*}*/
+/*div.client_firb{*/
+/*width: 8%;*/
+/*}*/
+/*.client_Subscriptions{*/
+/*width: 9.2%;*/
+/*}*/
+/*div.client_Subscriptions{*/
+/*width: 8%;*/
+/*}*/
+/*.client_comments{*/
+/*width: 16%;*/
+/*}*/
+/*div.client_comments{*/
+/*width: 16%;*/
+/*}*/
+/*.FK_saleID{*/
+/*width: 5%;*/
+/*}*/
+/*div.FK_saleID{*/
+/*width: 5%;*/
+/*}*/
+/*.staff_firstname{*/
+/*width: 10%;*/
+/*}*/
+/*.staff_lastname{*/
+    /*width: 10%;*/
+/*}*/
+/*.staff_phone{*/
+    /*width: 8%;*/
+/*}*/
+/*.staff_email{*/
+    /*width: 12%;*/
+/*}*/
+/*.staff_wechat{*/
+    /*width: 8%;*/
+/*}*/
+/*.staff_employment_status{*/
+    /*width: 10%;*/
+/*}*/
+/*.staff_jobtitle{*/
+    /*width: 8%;*/
+/*}*/
+/*.staff_messagetoclient{*/
+    /*width: 10%;*/
+/*}*/
+/*.staff_comments{*/
+    /*width: 10%;*/
+/*}*/
+/*.dept_leader{*/
+    /*width: 8%;*/
+/*}*/
+/*.PP_lotnumber{*/
+    /*width: 8%;*/
+/*}*/
+/*.PP_apptnumber{*/
+    /*width: 8%;*/
+/*}*/
+/*.PP_price{*/
+    /*width: 8%;*/
+/*}*/
+/*.PP_comments{*/
+    /*width: 18%;*/
+/*}*/
+/*.SP_name{*/
+    /*width: 10%;*/
+/*}*/
+/*.SP_stage{*/
+    /*width: 10%;*/
+/*}*/
+/*.SP_comments{*/
+    /*width: 18%;*/
+/*}*/
+/*.SD_name{*/
+    /*width: 10%;*/
+/*}*/
+/*.SD_commennts{*/
+    /*width: 18%;*/
+/*}*/
+
+.filter {
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
+    padding: 5px 0px 5px 0px;
+    border: 0px solid #ddd;
+}
+
+#myTable {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: auto;
+    border: 1px solid #ddd;
+    font-size: 15px;
+    text-align: center;
+}
+
+#myTable th, #myTable td {
+    border: 1px solid #ddd;
+    text-align: center;
+/*// padding: 12px;*/
+    padding-bottom: 12px;
+    padding-top: 12px;
+}
+
+#myTable tr {
+    border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+    background-color: #f1f1f1;
+}
+th{
+/*//text-align : center;*/
+/*//overflow: auto;*/
+}
+#search{
+    /*//float: left;*/
+}
