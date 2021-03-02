@@ -42,11 +42,12 @@ class Welcome extends CI_Controller {
 		}
 		else
 		{
-			$data = array('title' => 'welcome');
-			$this->load->view('header', $data);
-			$data1 = array('clients' => $this->clients_model->get_clients(), 'fontsize'=>$this->clients_model->get_font());
-			$this->load->view('clients_view', $data1);
-			$this->load->view('footer');
+			redirect('clients');
+//			$data = array('title' => 'welcome');
+//			$this->load->view('header', $data);
+//			$data1 = array('clients' => $this->clients_model->get_clients(), 'fontsize'=>$this->clients_model->get_font());
+//			$this->load->view('clients_view', $data1);
+//			$this->load->view('footer');
 		}
 
 	}

@@ -25,6 +25,17 @@ class sales extends CI_Controller
         $this->load->model('staff_model');
     }
     public function index(){
+//        var_dump($this->session->userdata['loginuser']);
+//        if($this->session->userdata['loginuser'] == NULL){
+//            redirect('login');
+//        }
+        $this->load->library('session');
+        $user_logged_in = $this->session->userdata('loginuser');
+        $this->load->helper('url');
+        if ($user_logged_in == FALSE)
+        {
+            redirect('/login');
+        }
         $data = array('title' => 'Sales');
         $this->load->view('header', $data);
         $property = $this->sales_model->get_property();

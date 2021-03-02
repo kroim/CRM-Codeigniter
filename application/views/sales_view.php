@@ -1,9 +1,10 @@
-
-
 <?php
-
+$checks = array();
+for($i=0;$i<sizeof($property);$i++){
+    $checks[$i] = $property[$i]->PK_PPID;
+}
 ?>
-<div class="body" style="font-family: 'Times New Roman'; font-style: inherit">
+<div class="body" style="font-family: Arial; font-style: inherit">
 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update_sales" id="Update_Sales" style="display: none">
     Update  ( clients / staffs )
 </button>
@@ -122,7 +123,7 @@
     <a class="btn btn-primary btn-sm" href="#" onclick="myexport()">Export</a>
 
     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addModal" id="Add_Clients">
-        Add  ( sales )
+        Add Sales
     </button>
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -157,7 +158,7 @@
             </div>
         </div>
     </div>
-    <a class="btn btn-primary btn-sm" href="#" onclick="mydelete()">Delete  ( sales )</a>
+    <a class="btn btn-primary btn-sm" href="#" onclick="mydelete()">Delete Sales</a>
     <div class="dropdown" style="display: inline-block; float: right">
         <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" style="text-align: center">Font Size</button>
         <ul class="dropdown-menu" style="text-align: left; width: 200px">
@@ -214,9 +215,17 @@
         function myexport(){
             jQuery("#export_No_id").focus().click();
         }
-        function allcheck(){
+        function allcheck(n){
+            console.log(n);
+            var ch_arr = <?php echo json_encode($checks);?>;
+            console.log(ch_arr);
             if(document.getElementById('checkid').checked) {
-                jQuery(".allcheck").attr('checked', true);
+                for(var i = 0; i < n; i++){
+                    if(jQuery("#tr-"+ch_arr[i]).css('display') != 'none'){
+                        jQuery("#check-"+ch_arr[i]).attr('checked', true);
+                    }
+                }
+
             } else {
                 jQuery(".allcheck").attr('checked', false);
                 location.reload();
@@ -230,7 +239,7 @@
 
         <thead>
         <tr>
-            <th class="check"><input type='checkbox' name='checkid' value='allcheck' id='checkid' onchange="allcheck()"></th>
+            <th class="check"><input type='checkbox' name='checkid' value='allcheck' id='checkid' onchange="allcheck(<?php echo sizeof($checks);?>)"></th>
             <th class="No_id" style="cursor: pointer; display: none" onclick="sort_table(people, 1, asc3); asc3 *= -1; asc1 = 1; asc2 = 1;">No</th>
             <th class="client_firstname" style="cursor: pointer" onclick="sort_table(people, 2, asc3); asc3 *= -1; asc1 = 1; asc2 = 1;">Client First Name</th>
             <th class="client_lastname" style="cursor: pointer" onclick="sort_table(people, 3, asc3); asc3 *= -1; asc1 = 1; asc2 = 1;">Client Last Name</th>
@@ -300,7 +309,7 @@
             if($clients[$i][0]->client_firb == 1) $client_firb = "Yes";
             else if($clients[$i][0]->client_firb == 0) $client_firb = "No";
             echo
-            ("<td class='check'><input class='allcheck' type='checkbox' name='checkid[]' value='".$property[$i]->PK_PPID."' id='check'></td>"
+            ("<td class='check'><input class='allcheck' type='checkbox' name='checkid[]' value='".$property[$i]->PK_PPID."' id='check-".$property[$i]->PK_PPID."'></td>"
                 ."<td class='No_id' style='display: none'>".$property[$i]->PK_PPID."</td>"
                 ."<td class='client_firstname'>".$clients[$i][0]->client_firstname."</td>"
                 ."<td class='client_lastname'>".$clients[$i][0]->client_lastname."</td>"

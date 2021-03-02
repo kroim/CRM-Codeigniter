@@ -25,6 +25,7 @@ class login extends CI_Controller
         //set validations
         $this->form_validation->set_rules("txt_username", "Username", "trim|required");
         $this->form_validation->set_rules("txt_password", "Password", "trim|required");
+
         if ($this->form_validation->run() == FALSE)
         {
             //validation fails

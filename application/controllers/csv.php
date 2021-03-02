@@ -14,6 +14,8 @@ class csv extends CI_Controller
         $this->load->model('csv_model');
         $this->load->model('staff_add_model');
         $this->load->model('sales_add_model');
+        $this->load->model('clients_model');
+        $this->load->model('staff_model');
     }
     function index()
     {
@@ -21,15 +23,39 @@ class csv extends CI_Controller
     }
     function uploadData()
     {
-        $this->csv_model->uploadData();
-        redirect('clients');
+        $err_msg = $this->csv_model->uploadData();
+        $data = array('title' => 'Clients');
+        $this->load->view('header', $data);
+        $clients = $this->clients_model->get_clients();
+        $staffs = array();
+        for($i = 0; $i < sizeof($clients); $i++)
+        {
+            $staffs[$i] = $this->staff_model->get_staff($clients[$i]->FK_saleID);
+        }
+        $data1 = array('clients' => $clients, 'staffs' => $staffs, 'err_msg'=>$err_msg, 'fontsize'=>$this->clients_model->get_font());
+
+        $this->load->view('clients_view', $data1);
+        $this->load->view('footer');
+//        redirect('clients');
     }
     function staffUpload(){
         $this->load->view('staffLoadView');
     }
     function staffUploadData(){
-        $this->csv_model->staffUploadData();
-        redirect('staff');
+        $err_msg = $this->csv_model->staffUploadData();
+        $dept = array();
+        $data = array('title' => 'Staffs');
+        $this->load->view('header', $data);
+        $staff = $this->staff_model->get_staffs();
+        for($i=0; $i<sizeof($staff);$i++){
+            $dept[$i] = $this->staff_model->get_dept($staff[$i]->FK_department);
+        }
+        $data1 = array('staff' => $staff, 'dept' => $dept, 'err_msg'=>$err_msg, 'fontsize'=>$this->staff_model->get_font());
+
+        $this->load->view('staff_view', $data1);
+
+        $this->load->view('footer');
+//        redirect('staff');
     }
     function salesUpload(){
         $this->load->view('salesLoadView');

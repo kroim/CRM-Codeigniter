@@ -19,6 +19,8 @@ class csv_model extends CI_Model
     {
         $count=0;
         $fp = fopen($_FILES['userfile']['tmp_name'],'r') or die("can't open file");
+        $error_msg = array();
+        $err_count = 0;
         while($csv_line = fgetcsv($fp,1024))
         {
             $count++;
@@ -62,18 +64,23 @@ class csv_model extends CI_Model
             if($this->add_clients_model->check_id($data) == TRUE){
                 $this->db->where('PK_clientID', $data['PK_clientID']);
                 $data['crane_features']=$this->db->update('client_tb', $data);
+            }else if($this->add_clients_model->check_user($data) == TRUE){
+                $error_msg[$err_count] = $data;
+                $err_count++;
             }else if($this->add_clients_model->check_user($data) == FALSE){
                 $data['crane_features']=$this->db->insert('client_tb', $data);
             }
         }
         fclose($fp) or die("can't close file");
         $data['success']="success";
-        return $data;
+        return $error_msg;
     }
     function staffUploadData()
     {
         $count=0;
         $fp = fopen($_FILES['userfile']['tmp_name'],'r') or die("can't open file");
+        $error_msg = array();
+        $err_count = 0;
         while($csv_line = fgetcsv($fp,1024))
         {
             $count++;
@@ -113,13 +120,16 @@ class csv_model extends CI_Model
             if($this->staff_add_model->check_id($data) == TRUE){
                 $this->db->where('PK_staffID', $data['PK_staffID']);
                 $data['crane_features']=$this->db->update('staff_tb', $data);
+            }else if($this->staff_add_model->check_user($data) == TRUE){
+                $error_msg[$err_count] = $data;
+                $err_count++;
             }else if($this->staff_add_model->check_user($data) == FALSE){
                 $data['crane_features']=$this->db->insert('staff_tb', $data);
             }
         }
         fclose($fp) or die("can't close file");
         $data['success']="success";
-        return $data;
+        return $error_msg;
     }
     function salesUploadData()
     {
@@ -155,7 +165,6 @@ class csv_model extends CI_Model
                 'FK_SPID' => $insert_csv['FK_SPID']);
 
             if($this->sales_add_model->check_id($data) == TRUE){
-
                 $this->db->where('PK_PPID', $data['PK_PPID']);
                 $data['crane_features']=$this->db->update('property_tb', $data);
             }else if($this->sales_add_model->check_id($data) == FALSE){

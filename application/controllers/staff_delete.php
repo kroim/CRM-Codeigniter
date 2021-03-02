@@ -52,7 +52,12 @@ class staff_delete extends CI_Controller
         }
         $data = array('title' => 'Staffs');
         $this->load->view('header', $data);
-        $data1 = array('staff' => $this->staff_model->get_staffs(), 'fontsize'=>$this->staff_model->get_font());
+        $dept = array();
+        $staff = $this->staff_model->get_staffs();
+        for($i=0; $i<sizeof($staff);$i++){
+            $dept[$i] = $this->staff_model->get_dept($staff[$i]->FK_department);
+        }
+        $data1 = array('staff' => $staff, 'dept' => $dept, 'fontsize'=>$this->staff_model->get_font());
         $this->load->view('staff_view', $data1);
         $this->load->view('footer');
     }

@@ -24,6 +24,18 @@ class clients extends CI_Controller
         $this->load->model('staff_model');
     }
     public function index(){
+//        var_dump($this->session);
+//        var_dump($this->session->userdata['loginuser']);
+//        if($this->session->userdata['loginuser'] == NULL){
+//            redirect('login');
+//        }
+        $this->load->library('session');
+        $user_logged_in = $this->session->userdata('loginuser');
+        $this->load->helper('url');
+        if ($user_logged_in == FALSE)
+        {
+            redirect('/login');
+        }
         $data = array('title' => 'Clients');
         $this->load->view('header', $data);
         $clients = $this->clients_model->get_clients();

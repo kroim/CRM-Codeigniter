@@ -15,7 +15,6 @@ class add_clients_model extends CI_Model{
     {
         $first_name = $client['client_firstname'];// get fiest name
         $last_name = $client['client_lastname'];// get last name
-        var_dump($first_name, $last_name);
         $this->db->select('PK_clientID');
         $this->db->from('client_tb');
         $this->db->where('client_firstname', $first_name);

@@ -33,6 +33,9 @@
         <a class="btn btn-primary btn-sm" href="<?php echo site_url('messages_create_templete') ?>">Create Template</a>
         <a class="btn btn-primary btn-sm" href="#">Delete Templete</a>
         <a class="btn btn-primary btn-sm" href="#">Sent Messages</a>
+        <div style="display: inline-block; text-align: center; margin-left: 20%">
+            <p style="font-size: 20px; color: #b21472">Messages Page</p>
+        </div>
         <div class="dropdown" style="display: inline-block; float: right">
             <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" style="text-align: center; margin-right: 70px; margin-left: 30px">Choose Clients</button>
             <ul class="dropdown-menu" style="text-align: left; width: 200px">

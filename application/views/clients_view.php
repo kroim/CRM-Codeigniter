@@ -6,8 +6,118 @@
 //echo '</br>';
 //echo sizeof($clients);
 //echo $clients[0]->PK_clientID;
+$checks = array();
+for($i=0;$i<sizeof($clients);$i++){
+    $checks[$i] = $clients[$i]->PK_clientID;
+}
 ?>
-<div class="body" style="font-family: 'Times New Roman'; font-style: inherit">
+<style>
+    /* The Modal (background) */
+    .emodal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .emodal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 50%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s
+    }
+
+    /* Add Animation */
+    @-webkit-keyframes animatetop {
+        from {top:-300px; opacity:0}
+        to {top:0; opacity:1}
+    }
+
+    @keyframes animatetop {
+        from {top:-300px; opacity:0}
+        to {top:0; opacity:1}
+    }
+
+    /* The Close Button */
+    .eclose {
+        color: white;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .eclose:hover,
+    .eclose:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .emodal-header {
+        padding: 2px 16px;
+        background-color: #b88780;
+        color: white;
+    }
+
+    .emodal-body {padding: 20px 60px;}
+</style>
+<!-- Trigger/Open The Modal -->
+<button id="emyBtn" style="display: none">Open Modal</button>
+
+<!-- The Modal -->
+<div id="emyModal" class="emodal">
+
+    <!-- Modal content -->
+    <div class="emodal-content">
+        <div class="emodal-header">
+            <span class="eclose">&times;</span>
+            <h3 style="text-align: center">Existing Clients In This System</h3>
+        </div>
+        <div class="emodal-body">
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Get the modal
+    var emodal = document.getElementById('emyModal');
+
+    // Get the button that opens the modal
+    var ebtn = document.getElementById("emyBtn");
+
+    // Get the <span> element that closes the modal
+    var espan = document.getElementsByClassName("eclose")[0];
+
+    // When the user clicks the button, open the modal
+    ebtn.onclick = function() {
+        emodal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    espan.onclick = function() {
+        emodal.style.display = "none";
+    }
+</script>
+
+
+<div class="body" style="font-family: Arial; font-style: inherit">
 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update_client" id="Update_Client" style="display: none">
 </button>
 <div class="modal fade" id="update_client" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -141,7 +251,7 @@
         </div>
     <a class="btn btn-primary btn-sm" href="#" onclick="myexport()">Export</a>
         <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addModal" id="Add_Clients">
-            Add  ( clients )
+            Add Client
         </button>
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -188,7 +298,7 @@
                 </div>
             </div>
         </div>
-        <a class="btn btn-primary btn-sm" href="#" onclick="mydelete()">Delete  ( clients )</a>
+        <a class="btn btn-primary btn-sm" href="#" onclick="mydelete()">Delete Client</a>
         <div style="display: inline-block; text-align: center; margin-left: 30%">
             <p style="font-size: 20px; color: #b21472">Clients Page</p>
         </div>
@@ -233,11 +343,20 @@
         function myexport(){
             jQuery("#export_client_id").focus().click();
         }
-        function allcheck(){
+        function allcheck(n){
+            console.log(n);
+            var ch_arr = <?php echo json_encode($checks); ?>;
+            console.log(ch_arr[0]);
+
             if(document.getElementById('checkid').checked) {
-                jQuery(".allcheck").attr('checked', true);
-            } else {
-                jQuery(".allcheck").attr('checked', false);
+                for(var i = 0; i < n; i++){
+                    if(jQuery('#tr-' + ch_arr[i]).css('display') != "none"){
+                        jQuery('#check-' + ch_arr[i]).attr('checked', true);
+                    }
+                }
+            }
+            else {
+                jQuery(".checkitem").attr('checked', false);
                 location.reload();
             }
         }
@@ -250,7 +369,7 @@
 
         <thead>
         <tr>
-            <th class="check"><input type='checkbox' name='checkid' value='allcheck' id='checkid' onchange="allcheck()"></th>
+            <th class="check"><input type='checkbox' name='checkid' id='checkid' onchange="allcheck(<?php echo sizeof($checks); ?>)"></th>
             <th class="PK_clientID" style="cursor: pointer" onclick="sort_table(people, 1, asc3); asc3 *= -1; asc1 = 1; asc2 = 1;">Client ID</th>
             <th class="client_title" style="cursor: pointer" onclick="sort_table(people, 2, asc3); asc3 *= -1; asc1 = 1; asc2 = 1;">Title</th>
             <th class="client_firstname" style="cursor: pointer" onclick="sort_table(people, 3, asc3); asc3 *= -1; asc1 = 1; asc2 = 1;">First Name</th>
@@ -290,7 +409,7 @@
         <?php
         for($i=0; $i<sizeof($clients) ; $i++)
         {
-        echo ("<tr id='tr-".$clients[$i]->PK_clientID."' ondblclick='updata_clients(". $clients[$i]->PK_clientID .")'>");
+        echo ("<tr class='tr-header' id='tr-".$clients[$i]->PK_clientID."' ondblclick='updata_clients(". $clients[$i]->PK_clientID .")'>");
             if($clients[$i]->client_firb == 1) $client_firb = "Yes";
             else if($clients[$i]->client_firb == null) $client_firb = "";
             else if($clients[$i]->client_firb == 0) $client_firb = "No";
@@ -299,7 +418,7 @@
             else if($clients[$i]->client_Subscriptions == null) $client_Subscriptions = "";
             else if($clients[$i]->client_Subscriptions == 0) $client_Subscriptions = "No";
             echo
-            ("<td class='check'><input class='allcheck' type='checkbox' name='checkid[]' value='".$clients[$i]->PK_clientID."' id='check'></td>"
+            ("<td class='check'><input class='checkitem' type='checkbox' name='checkid[]' value='".$clients[$i]->PK_clientID."' id='check-".$clients[$i]->PK_clientID."'></td>"
                 ."<td class='PK_clientID'>".$clients[$i]->PK_clientID."</td>"
                 ."<td class='client_title'>".$clients[$i]->client_title."</td>"
                 ."<td class='client_firstname'>".$clients[$i]->client_firstname."</td>"
@@ -370,6 +489,9 @@
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
+            }
+            if (event.target == emodal) {
+                emodal.style.display = "none";
             }
         }
     </script>
@@ -536,3 +658,20 @@
         }
     }
     </script>
+<?php
+if(isset($err_msg)){
+    if(sizeof($err_msg)>1){?>
+    <script>
+        var err_msg = <?php echo json_encode($err_msg)?>;
+        var err_str = '';
+        for(var j = 0; j < err_msg.length; j++){
+            err_str += '<p style="color: red; display: inline-block;">Client ID:</p> '+err_msg[j]['PK_clientID']+'\t'+'<p style="color: red; margin-left: 10px; display: inline-block">First Name:</p> '+err_msg[j]['client_firstname']+'\t\t'+'<p style="color: red; margin-left: 10px; display: inline-block">Last Name:</p> '+err_msg[j]['client_lastname'];
+            err_str += '\t'+'<p style="color: red; margin-left: 10px; display: inline-block">Phone:</p> '+err_msg[j]['client_phone']+'\t'+'<p style="color: red; margin-left: 10px; display: inline-block">Email:</p> '+err_msg[j]['client_email']+'\t'+'<p style="color: red; margin-left: 10px; display: inline-block">Address:</p> '+err_msg[j]['client_address']+'</br>';
+        }
+        console.log(err_str);
+        $(".emodal-body").html(err_str);
+        $("#emyBtn").focus().click();
+    </script>
+<?php }
+}
+?>

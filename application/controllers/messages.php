@@ -22,7 +22,13 @@ class messages extends CI_Controller
         $this->load->model('messages_model');
     }
     public function index(){
-
+        $this->load->library('session');
+        $user_logged_in = $this->session->userdata('loginuser');
+        $this->load->helper('url');
+        if ($user_logged_in == FALSE)
+        {
+            redirect('/login');
+        }
         $data = array('title' => 'Messages Screen');
         $this->load->view('header', $data);
         $data1 = array('clients' => $this->messages_model->get_clients(), 'staffs'=>$this->messages_model->get_staffs());

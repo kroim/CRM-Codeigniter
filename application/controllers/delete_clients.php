@@ -22,6 +22,7 @@ class delete_clients extends CI_Controller
         $this->load->library('form_validation');
         //load the login model
         $this->load->model('clients_model');
+        $this->load->model('staff_model');
         $this->load->model('sales_model');
     }
     public function index(){
@@ -56,7 +57,13 @@ class delete_clients extends CI_Controller
         }
         $data = array('title' => 'Clients');
         $this->load->view('header', $data);
-        $data1 = array('clients' => $this->clients_model->get_clients(), 'fontsize'=>$this->clients_model->get_font());
+        $clients = $this->clients_model->get_clients();
+        $staffs = array();
+        for($i = 0; $i < sizeof($clients); $i++)
+        {
+            $staffs[$i] = $this->staff_model->get_staff($clients[$i]->FK_saleID);
+        }
+        $data1 = array('clients' => $clients, 'staffs' => $staffs, 'fontsize'=>$this->clients_model->get_font());;
         $this->load->view('clients_view', $data1);
         $this->load->view('footer');
     }
