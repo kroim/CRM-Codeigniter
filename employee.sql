@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100110
 File Encoding         : 65001
 
-Date: 2017-05-14 00:43:54
+Date: 2017-05-12 22:23:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,7 @@ CREATE TABLE `client_tb` (
   `client_firb` tinyint(1) DEFAULT NULL,
   `client_Subscriptions` tinyint(1) DEFAULT NULL,
   `client_comments` varchar(100) DEFAULT NULL,
-  `FK_saleID` int(20) DEFAULT NULL,
+  `FK_saleID` int(20) NOT NULL,
   PRIMARY KEY (`PK_clientID`),
   UNIQUE KEY `PK_clientID_2` (`PK_clientID`),
   KEY `PK_clientID` (`PK_clientID`),
@@ -41,7 +41,7 @@ CREATE TABLE `client_tb` (
   KEY `client_phone` (`client_phone`),
   KEY `client_email` (`client_email`),
   CONSTRAINT `client_tb_ibfk_1` FOREIGN KEY (`FK_saleID`) REFERENCES `staff_tb` (`PK_staffID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of client_tb
@@ -51,7 +51,6 @@ INSERT INTO `client_tb` VALUES ('2', 'High', 'J', 'YOU', '2147483647', '15@163.C
 INSERT INTO `client_tb` VALUES ('3', 'Best', 'H', 'GU', '2147483647', 'gu@hotmail.com', 'CCC', 'third', '2', '0', '0', 'best', '3');
 INSERT INTO `client_tb` VALUES ('4', 'Good', 'M', 'TSU', '2147483647', 'yd@hotmail.com', 'DDD', 'fourth', '2', '0', '0', 'good', '3');
 INSERT INTO `client_tb` VALUES ('5', 'five', 'AA', 'BB', '2147483647', 'hi@hello.com', 'AGGD', 'fifth', '2', '1', '0', 'very good', '5');
-INSERT INTO `client_tb` VALUES ('10', '', 'Ta', 'Xing', '2147483647', '@hotmail.com', 'EEE', 'Adress', null, null, null, '', '3');
 
 -- ----------------------------
 -- Table structure for customers
@@ -366,12 +365,12 @@ CREATE TABLE `staff_tb` (
   `staff_jobtitle` varchar(20) DEFAULT NULL,
   `staff_messagetoclient` varchar(50) DEFAULT NULL,
   `staff_comments` varchar(100) DEFAULT NULL,
-  `FK_department` int(20) DEFAULT NULL,
+  `FK_department` int(20) NOT NULL,
   PRIMARY KEY (`PK_staffID`),
   KEY `FK_department` (`FK_department`),
   KEY `staff_firstname` (`staff_firstname`,`staff_lastname`),
   CONSTRAINT `staff_tb_ibfk_1` FOREIGN KEY (`FK_department`) REFERENCES `department_tb` (`PK_deptID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of staff_tb
